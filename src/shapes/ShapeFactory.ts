@@ -24,7 +24,9 @@ export type ShapeName = keyof typeof SHAPE_TYPES;
 
 export class ShapeFactory {
   static create(name: ShapeName, x: number, y: number, color: number): Shape {
-    return new SHAPE_TYPES[name](x, y, color);
+    const shape = new SHAPE_TYPES[name](x, y, color);
+    shape.draw();
+    return shape;
   }
 
   static createRandom(x: number, y: number): Shape {

@@ -1,5 +1,6 @@
+import { Graphics } from "pixi.js";
 import { Shape } from "./Shape";
-import { SHAPE_HEIGHT, BORDER_COLOR } from "../constants";
+import { SHAPE_HEIGHT } from "../constants";
 
 export class Ellipse extends Shape {
   private readonly radiusX: number;
@@ -15,19 +16,9 @@ export class Ellipse extends Shape {
     super(x, y, Math.max(radiusX, radiusY), color);
     this.radiusX = radiusX;
     this.radiusY = radiusY;
-    this.refresh();
   }
 
-  protected draw(): void {
-    this.graphics
-      .ellipse(0, 0, this.radiusX, this.radiusY)
-      .fill(this.color)
-      .stroke({ width: 2, color: BORDER_COLOR });
-  }
-
-  protected drawOutlined(): void {
-    this.outlineGraphics
-      .ellipse(0, 0, this.radiusX, this.radiusY)
-      .stroke({ width: 2, color: BORDER_COLOR });
+  protected drawShape(g: Graphics): Graphics {
+    return g.ellipse(0, 0, this.radiusX, this.radiusY);
   }
 }

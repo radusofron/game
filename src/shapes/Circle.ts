@@ -1,5 +1,6 @@
+import { Graphics } from "pixi.js";
 import { Shape } from "./Shape";
-import { SHAPE_HEIGHT, BORDER_COLOR } from "../constants";
+import { SHAPE_HEIGHT } from "../constants";
 
 export class Circle extends Shape {
   constructor(
@@ -9,19 +10,9 @@ export class Circle extends Shape {
     radius: number = SHAPE_HEIGHT / 2,
   ) {
     super(x, y, radius, color);
-    this.refresh();
   }
 
-  protected draw(): void {
-    this.graphics
-      .circle(0, 0, this.radius)
-      .fill(this.color)
-      .stroke({ width: 2, color: BORDER_COLOR });
-  }
-
-  protected drawOutlined(): void {
-    this.outlineGraphics
-      .circle(0, 0, this.radius)
-      .stroke({ width: 2, color: BORDER_COLOR });
+  protected drawShape(g: Graphics): Graphics {
+    return g.circle(0, 0, this.radius);
   }
 }

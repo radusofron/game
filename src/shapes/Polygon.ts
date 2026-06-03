@@ -1,5 +1,6 @@
+import { Graphics } from "pixi.js";
 import { Shape } from "./Shape";
-import { SHAPE_HEIGHT, BORDER_COLOR } from "../constants";
+import { SHAPE_HEIGHT } from "../constants";
 
 export class Polygon extends Shape {
   protected readonly sides: number;
@@ -7,7 +8,6 @@ export class Polygon extends Shape {
   constructor(x: number, y: number, sides: number, color: number = 0xffffff) {
     super(x, y, SHAPE_HEIGHT / 2, color);
     this.sides = sides;
-    this.refresh();
   }
 
   private buildPoints(): number[] {
@@ -31,16 +31,7 @@ export class Polygon extends Shape {
     return points.map((v) => v * scale);
   }
 
-  protected draw(): void {
-    this.graphics
-      .poly(this.buildPoints())
-      .fill(this.color)
-      .stroke({ width: 2, color: BORDER_COLOR });
-  }
-
-  protected drawOutlined(): void {
-    this.outlineGraphics
-      .poly(this.buildPoints())
-      .stroke({ width: 2, color: BORDER_COLOR });
+  protected drawShape(g: Graphics): Graphics {
+    return g.poly(this.buildPoints());
   }
 }

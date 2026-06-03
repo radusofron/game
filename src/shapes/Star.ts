@@ -1,5 +1,6 @@
+import { Graphics } from "pixi.js";
 import { Shape } from "./Shape";
-import { SHAPE_HEIGHT, BORDER_COLOR } from "../constants";
+import { SHAPE_HEIGHT } from "../constants";
 
 export class Star extends Shape {
   // Distance from center to the tips
@@ -21,7 +22,6 @@ export class Star extends Shape {
     this.outerRadius = outerRadius;
     this.innerRadius = innerRadius;
     this.outerVertices = outerVertices;
-    this.refresh();
   }
 
   private buildPoints(): number[] {
@@ -46,16 +46,7 @@ export class Star extends Shape {
     return points.map((v) => v * scale);
   }
 
-  protected draw(): void {
-    this.graphics
-      .poly(this.buildPoints())
-      .fill(this.color)
-      .stroke({ width: 2, color: BORDER_COLOR });
-  }
-
-  protected drawOutlined(): void {
-    this.outlineGraphics
-      .poly(this.buildPoints())
-      .stroke({ width: 2, color: BORDER_COLOR });
+  protected drawShape(g: Graphics): Graphics {
+    return g.poly(this.buildPoints());
   }
 }

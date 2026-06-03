@@ -1,5 +1,5 @@
 import { Graphics } from "pixi.js";
-import { GRAVITY } from "../constants";
+import { GRAVITY, SHAPE_STROKE } from "../constants";
 
 // Base class
 export abstract class Shape {
@@ -25,15 +25,11 @@ export abstract class Shape {
     return Math.floor(Math.random() * 0xffffff);
   }
 
-  protected abstract draw(): void;
-  protected abstract drawOutlined(): void;
+  protected abstract drawShape(g: Graphics): Graphics;
 
-  // Clears the previous draw before redrawing to prevent overlapping "filled" with "outlined" appearances
-  refresh(): void {
-    this.graphics.clear();
-    this.draw();
-    this.outlineGraphics.clear();
-    this.drawOutlined();
+  draw(): void {
+    this.drawShape(this.graphics).fill(this.color).stroke(SHAPE_STROKE);
+    this.drawShape(this.outlineGraphics).stroke(SHAPE_STROKE);
   }
 
   update(delta: number): void {
