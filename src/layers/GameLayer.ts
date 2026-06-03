@@ -50,14 +50,16 @@ export class GameLayer {
   // Makes the game layer clickable
   setupClickInteractions(onEmptyClick: (x: number, y: number) => void): void {
     this.container.eventMode = "static";
-    this.container.on("click", (e) => onEmptyClick(e.global.x, e.global.y));
+    this.container.on("pointerdown", (e) =>
+      onEmptyClick(e.global.x, e.global.y),
+    );
   }
 
   // Makes the shape inside the game layer clickable
   setupShapeClick(shape: Shape, onShapeClick: () => void): void {
     shape.graphics.eventMode = "static";
-    shape.graphics.on("click", (e) => {
-      // Prevents click from bubbling to the game layer click handler
+    shape.graphics.on("pointerdown", (e) => {
+      // Prevents the event from bubbling to the game layer handler
       e.stopPropagation();
       onShapeClick();
     });

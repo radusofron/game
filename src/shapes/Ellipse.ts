@@ -13,7 +13,7 @@ export class Ellipse extends Shape {
     radiusX: number = SHAPE_HEIGHT * 0.75,
     radiusY: number = SHAPE_HEIGHT / 2,
   ) {
-    super(x, y, Math.max(radiusX, radiusY), color);
+    super(x, y, radiusY, color);
     this.radiusX = radiusX;
     this.radiusY = radiusY;
   }

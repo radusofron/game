@@ -38,6 +38,10 @@ export abstract class Shape {
     this.outlineGraphics.position.y = this.y;
   }
 
+  isAtCanvasBottom(canvasHeight: number): boolean {
+    return this.y + this.radius >= canvasHeight;
+  }
+
   isOffCanvas(canvasHeight: number): boolean {
     return this.y - this.radius > canvasHeight;
   }

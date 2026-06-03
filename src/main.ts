@@ -2,7 +2,7 @@ import { Application } from "pixi.js";
 import { Shape } from "./shapes/Shape";
 import { ShapeFactory } from "./shapes/ShapeFactory";
 import { LayerManager } from "./layers/LayerManager";
-import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR } from "./constants";
+import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR, SHAPE_HEIGHT } from "./constants";
 
 (async () => {
   // Create a new application
@@ -28,7 +28,10 @@ import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR } from "./constants";
   };
 
   // Spawns a shape into the canvas (at the given position, or at a random x along the top if no position is given) and adds it to the active shapes set
-  const spawnShape = (x = Math.random() * app.screen.width, y = 0) => {
+  const spawnShape = (
+    x = Math.random() * app.screen.width,
+    y = SHAPE_HEIGHT / 2,
+  ) => {
     const shape = ShapeFactory.createRandom(x, y);
     // Click interaction 1: click on an existing shape removes the shape
     layerManager.addShape(shape, () => removeShape(shape));
@@ -54,7 +57,7 @@ import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR } from "./constants";
     for (const shape of shapes) {
       shape.update(time.deltaTime);
 
-      if (shape.isOffCanvas(app.screen.height)) {
+      if (shape.isAtCanvasBottom(app.screen.height)) {
         removeShape(shape);
       }
     }
