@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    border: none;
+    margin: 0;
+}
+
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --sky: #87CEEB;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: var(--black);
+    background-color: var(--white);
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#top-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.text-fields{
+    padding: 16px 24px;
+}
