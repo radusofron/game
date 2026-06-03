@@ -19,20 +19,20 @@ import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR } from "./constants";
   pixiContainer!.appendChild(app.canvas);
 
   const layerManager = new LayerManager(app);
-  const shapes: Shape[] = [];
+  const shapes = new Set<Shape>();
 
-  // Removes the shape from the canvas and from the active shapes list
+  // Removes the shape from the canvas and from the active shapes set
   const removeShape = (shape: Shape) => {
     layerManager.removeShape(shape);
-    shapes.splice(shapes.indexOf(shape), 1);
+    shapes.delete(shape);
   };
 
-  // Spawns a shape at the given position, or at a random x along the top if no position is given
+  // Spawns a shape into the canvas (at the given position, or at a random x along the top if no position is given) and adds it to the active shapes set
   const spawnShape = (x = Math.random() * app.screen.width, y = 0) => {
     const shape = ShapeFactory.createRandom(x, y);
     // Click interaction 1: click on an existing shape removes the shape
     layerManager.addShape(shape, () => removeShape(shape));
-    shapes.push(shape);
+    shapes.add(shape);
   };
 
   // Click interaction 2: click on an empty area spawns a new shape
@@ -51,7 +51,7 @@ import { SPAWN_INTERVAL, EDGE_ZONE_BG_COLOR } from "./constants";
   });
 
   app.ticker.add((time) => {
-    for (const shape of [...shapes]) {
+    for (const shape of shapes) {
       shape.update(time.deltaTime);
 
       if (shape.isOffCanvas(app.screen.height)) {
