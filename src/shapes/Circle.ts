@@ -6,10 +6,10 @@ export class Circle extends Shape {
   constructor(
     x: number,
     y: number,
-    radius: number = SHAPE_HEIGHT / 2,
     color: number = 0xffffff,
+    radius: number = SHAPE_HEIGHT / 2,
   ) {
-    super(x, y, radius, color);
+    super(x, y, color, radius);
   }
 
   protected drawShape(g: Graphics): Graphics {

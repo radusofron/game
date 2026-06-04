@@ -12,12 +12,12 @@ export class Star extends SimplePolygon {
   constructor(
     x: number,
     y: number,
+    color: number = 0xffffff,
     outerRadius: number = SHAPE_HEIGHT / 2,
     innerRadius: number = SHAPE_HEIGHT / 5,
     outerVertices: number = 5,
-    color: number = 0xffffff,
   ) {
-    super(x, y, SHAPE_HEIGHT / 2, color);
+    super(x, y, color, SHAPE_HEIGHT / 2);
     this.outerRadius = outerRadius;
     this.innerRadius = innerRadius;
     this.outerVertices = outerVertices;

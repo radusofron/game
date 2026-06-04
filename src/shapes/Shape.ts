@@ -10,11 +10,11 @@ export abstract class Shape {
   protected radius: number;
   protected color: number;
 
-  constructor(x: number, y: number, radius: number, color: number) {
+  constructor(x: number, y: number, color: number, radius: number) {
     this.x = x;
     this.y = y;
-    this.radius = radius;
     this.color = color;
+    this.radius = radius;
     this.graphics = new Graphics();
     this.graphics.position.set(x, y);
     this.outlineGraphics = new Graphics();

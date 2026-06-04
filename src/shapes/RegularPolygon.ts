@@ -6,7 +6,7 @@ export class RegularPolygon extends SimplePolygon {
   protected readonly sides: number;
 
   constructor(x: number, y: number, sides: number, color: number = 0xffffff) {
-    super(x, y, SHAPE_HEIGHT / 2, color);
+    super(x, y, color, SHAPE_HEIGHT / 2);
     this.sides = sides;
   }
 
