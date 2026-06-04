@@ -29,6 +29,14 @@ export abstract class Shape {
 
   abstract area(): number;
 
+  abstract halfWidth(): number;
+
+  setX(x: number): void {
+    this.x = x;
+    this.graphics.position.x = x;
+    this.outlineGraphics.position.x = x;
+  }
+
   draw(): void {
     this.drawShape(this.graphics).fill(this.color).stroke(SHAPE_STROKE);
     this.drawShape(this.outlineGraphics).stroke(SHAPE_STROKE);

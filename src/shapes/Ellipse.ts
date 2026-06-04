@@ -25,4 +25,8 @@ export class Ellipse extends Shape {
   area(): number {
     return Math.PI * this.radiusX * this.radiusY;
   }
+
+  halfWidth(): number {
+    return this.radiusX;
+  }
 }

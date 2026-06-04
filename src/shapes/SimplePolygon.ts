@@ -18,6 +18,8 @@ export abstract class SimplePolygon extends Shape {
 
     // Step 1: compute each vertex around the center per its configured angle and radius
     const points: number[] = [];
+    let minX = Infinity;
+    let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
     for (let i = 0; i < totalVertices; i++) {
@@ -26,16 +28,28 @@ export abstract class SimplePolygon extends Shape {
       const x = Math.cos(angle) * r;
       const y = Math.sin(angle) * r;
       points.push(x, y);
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
       if (y < minY) minY = y;
       if (y > maxY) maxY = y;
     }
 
-    // Step 2: scale all coordinates so the polygon is exactly SHAPE_HEIGHT tall, while also shifting y so the shape is vertically centered at the origin
+    // Step 2: scale so the polygon is exactly SHAPE_HEIGHT tall, then center both axes at the origin
     const scale = SHAPE_HEIGHT / (maxY - minY);
+    const xOffset = ((maxX + minX) / 2) * scale;
     const yOffset = ((maxY + minY) / 2) * scale;
     return points.map((v, i) =>
-      i % 2 === 0 ? v * scale : v * scale - yOffset,
+      i % 2 === 0 ? v * scale - xOffset : v * scale - yOffset,
     );
+  }
+
+  halfWidth(): number {
+    const points = this.buildPoints();
+    let maxAbsX = 0;
+    for (let i = 0; i < points.length; i += 2) {
+      maxAbsX = Math.max(maxAbsX, Math.abs(points[i]));
+    }
+    return maxAbsX;
   }
 
   protected drawShape(g: Graphics): Graphics {

@@ -19,4 +19,8 @@ export class Circle extends Shape {
   area(): number {
     return Math.PI * this.radius * this.radius;
   }
+
+  halfWidth(): number {
+    return this.radius;
+  }
 }

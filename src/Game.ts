@@ -24,7 +24,9 @@ export class Game {
   private gravity = GRAVITY;
 
   constructor(private readonly app: Application) {
-    this.layerManager = new LayerManager(app, (x, y) => this.spawnShape(x, y));
+    this.layerManager = new LayerManager(app, (x, y) =>
+      this.spawnShape(x, y, true),
+    );
   }
 
   start(): void {
@@ -63,8 +65,21 @@ export class Game {
   private spawnShape(
     x = Math.random() * this.app.screen.width,
     y = SHAPE_HEIGHT / 2,
+    isClick = false,
   ): void {
     const shape = ShapeFactory.createRandom(x, y);
+    const hw = shape.halfWidth();
+    if (x < hw || x > this.app.screen.width - hw) {
+      shape.setX(
+        isClick
+          ? // via click: closest to the click, but fully visible
+            Math.max(hw, Math.min(this.app.screen.width - hw, x))
+          : // via spawner: random, but fully visible
+            // min: hw + 0 = hw
+            // max: hw + (screenWidth - 2*hw) = screenWidth - hw
+            hw + Math.random() * (this.app.screen.width - 2 * hw),
+      );
+    }
     // Click interaction 2: click on an existing shape removes the shape
     this.layerManager.addShape(shape, () => this.removeShape(shape));
     this.shapes.add(shape);
