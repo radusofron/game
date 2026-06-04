@@ -30,9 +30,12 @@ export abstract class SimplePolygon extends Shape {
       if (y > maxY) maxY = y;
     }
 
-    // Step 2: scale all coordinates so the polygon is exactly SHAPE_HEIGHT tall
+    // Step 2: scale all coordinates so the polygon is exactly SHAPE_HEIGHT tall, while also shifting y so the shape is vertically centered at the origin
     const scale = SHAPE_HEIGHT / (maxY - minY);
-    return points.map((v) => v * scale);
+    const yOffset = ((maxY + minY) / 2) * scale;
+    return points.map((v, i) =>
+      i % 2 === 0 ? v * scale : v * scale - yOffset,
+    );
   }
 
   protected drawShape(g: Graphics): Graphics {
