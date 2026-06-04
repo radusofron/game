@@ -1,7 +1,7 @@
 import { Shape } from "./Shape";
 
 import { Triangle } from "./Triangle";
-import { Rectangle } from "./Rectangle";
+import { Tetragon } from "./Tetragon";
 import { Pentagon } from "./Pentagon";
 import { Hexagon } from "./Hexagon";
 import { Circle } from "./Circle";
@@ -12,7 +12,7 @@ type ShapeConstructor = new (x: number, y: number, color: number) => Shape;
 
 const SHAPE_TYPES = {
   triangle: Triangle,
-  rectangle: Rectangle,
+  tetragon: Tetragon,
   pentagon: Pentagon,
   hexagon: Hexagon,
   circle: Circle,

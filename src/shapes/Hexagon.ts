@@ -1,7 +1,7 @@
-import { RegularPolygon } from "./RegularPolygon";
+import { ConvexPolygon } from "./ConvexPolygon";
 
-export class Hexagon extends RegularPolygon {
+export class Hexagon extends ConvexPolygon {
   constructor(x: number, y: number, color: number = 0xffffff) {
-    super(x, y, 6, color);
+    super(x, y, color, 6);
   }
 }

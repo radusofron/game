@@ -28,6 +28,11 @@ export class Star extends SimplePolygon {
     return this.outerVertices * 2;
   }
 
+  protected vertexAngle(index: number): number {
+    // In a star, vertices are evenly spaced around the center
+    return (index * 2 * Math.PI) / this.vertexCount();
+  }
+
   protected vertexRadius(index: number): number {
     // In a star, each outer vertex uses the outer radius, while each inner vertex uses the inner radius
     return index % 2 === 0 ? this.outerRadius : this.innerRadius;

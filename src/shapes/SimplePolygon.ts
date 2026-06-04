@@ -7,18 +7,21 @@ export abstract class SimplePolygon extends Shape {
   // Number of vertices
   protected abstract vertexCount(): number;
 
+  // Angle of vertex `index`
+  protected abstract vertexAngle(index: number): number;
+
   // Radius of vertex `index`
   protected abstract vertexRadius(index: number): number;
 
   private buildPoints(): number[] {
     const totalVertices = this.vertexCount();
 
-    // Step 1: compute each vertex around the center per its configured radius
+    // Step 1: compute each vertex around the center per its configured angle and radius
     const points: number[] = [];
     let minY = Infinity;
     let maxY = -Infinity;
     for (let i = 0; i < totalVertices; i++) {
-      const angle = (i * 2 * Math.PI) / totalVertices;
+      const angle = this.vertexAngle(i);
       const r = this.vertexRadius(i);
       const x = Math.cos(angle) * r;
       const y = Math.sin(angle) * r;
