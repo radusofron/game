@@ -61,7 +61,7 @@ export class Game {
     this.controls.update(this.spawnFrequency, this.gravity);
   }
 
-  // Spawns a shape into the canvas (at the given position, or at a random x along the top if no position is given) and adds it to the active shapes set
+  // Spawns a shape into the canvas (at the given position, or at a random x along the top if no position is given) and adds it to the active shapes set. In both cases, the shape is guaranteed to be fully visible (click positions are clamped to the nearest valid boundary, random positions are generated within the valid range)
   private spawnShape(
     x = Math.random() * this.app.screen.width,
     y = SHAPE_HEIGHT / 2,
@@ -126,6 +126,7 @@ export class Game {
       clearInterval(this.spawnTimer);
       this.app.ticker.stop();
     } else {
+      clearInterval(this.spawnTimer);
       this.spawnTimer = setInterval(
         () => this.spawnShape(),
         1000 / this.spawnFrequency,
