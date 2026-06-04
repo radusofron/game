@@ -39,10 +39,10 @@ export abstract class SimplePolygon extends Shape {
   // For a simple polygon, we can compute the area via the Shoelace formula (https://en.wikipedia.org/wiki/Shoelace_formula)
   area(): number {
     const points = this.buildPoints();
-    const vertices = points.length / 2;
+    const totalVertices = points.length / 2;
     let sum = 0;
-    for (let i = 0; i < vertices; i++) {
-      const next = (i + 1) % vertices;
+    for (let i = 0; i < totalVertices; i++) {
+      const next = (i + 1) % totalVertices;
       const x1 = points[i * 2];
       const y1 = points[i * 2 + 1];
       const x2 = points[next * 2];

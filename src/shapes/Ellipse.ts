@@ -9,9 +9,9 @@ export class Ellipse extends Shape {
   constructor(
     x: number,
     y: number,
-    color: number = 0xffffff,
     radiusX: number = SHAPE_HEIGHT * 0.75,
     radiusY: number = SHAPE_HEIGHT / 2,
+    color: number = 0xffffff,
   ) {
     super(x, y, radiusY, color);
     this.radiusX = radiusX;
