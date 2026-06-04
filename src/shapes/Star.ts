@@ -1,8 +1,7 @@
-import { Graphics } from "pixi.js";
-import { Shape } from "./Shape";
+import { SimplePolygon } from "./SimplePolygon";
 import { SHAPE_HEIGHT } from "../constants";
 
-export class Star extends Shape {
+export class Star extends SimplePolygon {
   // Distance from center to the tips
   private readonly outerRadius: number;
   // Distance from center to the valleys
@@ -24,29 +23,13 @@ export class Star extends Shape {
     this.outerVertices = outerVertices;
   }
 
-  private buildPoints(): number[] {
-    const totalVertices = this.outerVertices * 2;
-
-    // Step 1: compute all vertices using the configured radii
-    const points: number[] = [];
-    let minY = Infinity;
-    let maxY = -Infinity;
-    for (let i = 0; i < totalVertices; i++) {
-      const angle = (i * Math.PI) / this.outerVertices;
-      const r = i % 2 === 0 ? this.outerRadius : this.innerRadius;
-      const x = Math.cos(angle) * r;
-      const y = Math.sin(angle) * r;
-      points.push(x, y);
-      if (y < minY) minY = y;
-      if (y > maxY) maxY = y;
-    }
-
-    // Step 2: scale all coordinates so the star is exactly SHAPE_HEIGHT tall
-    const scale = SHAPE_HEIGHT / (maxY - minY);
-    return points.map((v) => v * scale);
+  protected vertexCount(): number {
+    // In a star, each outer vertex is followed by an inner vertex
+    return this.outerVertices * 2;
   }
 
-  protected drawShape(g: Graphics): Graphics {
-    return g.poly(this.buildPoints());
+  protected vertexRadius(index: number): number {
+    // In a star, each outer vertex uses the outer radius, while each inner vertex uses the inner radius
+    return index % 2 === 0 ? this.outerRadius : this.innerRadius;
   }
 }

@@ -27,6 +27,8 @@ export abstract class Shape {
 
   protected abstract drawShape(g: Graphics): Graphics;
 
+  abstract area(): number;
+
   draw(): void {
     this.drawShape(this.graphics).fill(this.color).stroke(SHAPE_STROKE);
     this.drawShape(this.outlineGraphics).stroke(SHAPE_STROKE);
@@ -36,6 +38,10 @@ export abstract class Shape {
     this.y += GRAVITY * delta;
     this.graphics.position.y = this.y;
     this.outlineGraphics.position.y = this.y;
+  }
+
+  isInGameArea(top: number, bottom: number): boolean {
+    return this.y + this.radius > top && this.y - this.radius < bottom;
   }
 
   isAtCanvasBottom(canvasHeight: number): boolean {

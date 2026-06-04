@@ -11,8 +11,14 @@
 <body>
     <div id="app">
         <div id="top-controls">
-            <p class="text-fields">No of shapes being displayed</p>
-            <p class="text-fields">Surface area</p>
+            <p id="shape-count" class="text-fields">
+                <span class="label">Shapes currently displayed:</span>
+                <span class="value"></span>
+            </p>
+            <p id="shape-area" class="text-fields">
+                <span class="label">Area occupied by shapes:</span>
+                <span class="value"></span>
+            </p>
         </div>
         <div id="pixi-container"></div>
         <div id="bottom-controls">

@@ -15,4 +15,8 @@ export class Circle extends Shape {
   protected drawShape(g: Graphics): Graphics {
     return g.circle(0, 0, this.radius);
   }
+
+  area(): number {
+    return Math.PI * this.radius * this.radius;
+  }
 }

@@ -7,13 +7,10 @@ export class LayerManager {
   private readonly gameLayer: GameLayer;
   private readonly edgeLayer: EdgeLayer;
 
-  constructor(app: Application) {
+  constructor(app: Application, onEmptyClick: (x: number, y: number) => void) {
     // EdgeLayer must be added to stage first so GameLayer renders on top
     this.edgeLayer = new EdgeLayer(app);
     this.gameLayer = new GameLayer(app);
-  }
-
-  setupClickInteractions(onEmptyClick: (x: number, y: number) => void): void {
     this.gameLayer.setupClickInteractions(onEmptyClick);
   }
 

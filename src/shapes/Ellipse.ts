@@ -21,4 +21,8 @@ export class Ellipse extends Shape {
   protected drawShape(g: Graphics): Graphics {
     return g.ellipse(0, 0, this.radiusX, this.radiusY);
   }
+
+  area(): number {
+    return Math.PI * this.radiusX * this.radiusY;
+  }
 }
