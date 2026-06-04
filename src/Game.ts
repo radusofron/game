@@ -28,6 +28,8 @@ export class Game {
   }
 
   start(): void {
+    this.controls.enable();
+
     this.spawnTimer = setInterval(
       () => this.spawnShape(),
       1000 / this.spawnFrequency,

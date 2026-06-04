@@ -37,6 +37,12 @@ export class Controls {
     );
   }
 
+  enable(): void {
+    for (const [button] of this.listeners) {
+      button.disabled = false;
+    }
+  }
+
   update(spawnFrequency: number, gravity: number): void {
     this.spawnFrequencyEl.textContent = spawnFrequency.toLocaleString();
     this.gravityEl.textContent = gravity.toLocaleString();
