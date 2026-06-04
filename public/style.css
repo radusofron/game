@@ -1,38 +1,106 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    border: none;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 :root {
-    --white: #FFFFFF;
-    --black: #000000;
-    --sky: #87CEEB;
+  --white: #ffffff;
+  --black: #000000;
+  --sky: #87ceeb;
+  --dark-blue: #1452a3;
+  --light-blue: #c8e8f5;
+  --yellow: #ffd700;
+  --yellow-shadow: #ffd70099;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    color: var(--black);
-    background-color: var(--white);
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  color: var(--black);
+  background-color: var(--white);
+  overflow: hidden;
 }
 
 #app {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#pixi-container canvas {
+  display: block;
+  border: 1px solid var(--sky);
+  border-left: none;
+  border-right: none;
 }
 
 #top-controls {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--dark-blue);
 }
 
+#bottom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: var(--dark-blue);
+}
 
-.text-fields{
-    padding: 16px 24px;
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 24px;
+  gap: 4px;
+}
+
+.control-group .label {
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--light-blue);
+}
+
+.control-group .value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--yellow);
+  text-shadow: 0 0 12px var(--yellow-shadow);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  width: 28px;
+  height: 28px;
+  background: var(--light-blue);
+  color: var(--dark-blue);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:hover {
+  background: var(--yellow);
 }

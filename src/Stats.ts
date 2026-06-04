@@ -13,11 +13,11 @@ export class Stats {
   update(count: number, area: number): void {
     if (count !== this.count) {
       this.count = count;
-      this.countEl.textContent = String(count);
+      this.countEl.textContent = count.toLocaleString();
     }
     if (area !== this.area) {
       this.area = area;
-      this.areaEl.textContent = String(Math.round(area));
+      this.areaEl.textContent = `${Math.round(area).toLocaleString()} px²`;
     }
   }
 }

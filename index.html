@@ -1,29 +1,49 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css" />
     <title>PixiJS - Template</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <div id="top-controls">
-            <p id="shape-count" class="text-fields">
-                <span class="label">Shapes currently displayed:</span>
-                <span class="value"></span>
-            </p>
-            <p id="shape-area" class="text-fields">
-                <span class="label">Area occupied by shapes:</span>
-                <span class="value"></span>
-            </p>
+      <div id="top-controls">
+        <p id="shape-count" class="control-group">
+          <span class="label">Shapes currently displayed:</span>
+          <span class="value"></span>
+        </p>
+        <p id="shape-area" class="control-group">
+          <span class="label">Area occupied by shapes:</span>
+          <span class="value"></span>
+        </p>
+      </div>
+      <div id="pixi-container"></div>
+      <div id="bottom-controls">
+        <div class="control-group">
+          <span class="label">Shapes per second:</span>
+          <div class="control-row">
+            <span class="value">1</span>
+            <div class="buttons">
+              <button class="btn">-</button>
+              <button class="btn">+</button>
+            </div>
+          </div>
         </div>
-        <div id="pixi-container"></div>
-        <div id="bottom-controls">
+        <div class="control-group">
+          <span class="label">Gravity value:</span>
+          <div class="control-row">
+            <span class="value">2</span>
+            <div class="buttons">
+              <button class="btn">-</button>
+              <button class="btn">+</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
-</body>
+  </body>
 </html>
