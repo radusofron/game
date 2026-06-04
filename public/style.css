@@ -26,16 +26,20 @@ body {
 
 #app {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-#pixi-container canvas {
-  display: block;
+#pixi-container {
+  flex: 1;
   border: 1px solid var(--sky);
   border-left: none;
   border-right: none;
+}
+
+#pixi-container canvas {
+  display: block;
 }
 
 #top-controls {
