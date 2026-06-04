@@ -1,5 +1,5 @@
+export const SPAWN_FREQUENCY = 1; // shapes per second
 export const GRAVITY = 2; // px per frame
-export const SPAWN_INTERVAL = 1000; // ms
 export const EDGE_ZONE_HEIGHT = 100; // px
 export const EDGE_ZONE_BG_COLOR = "#1452A3";
 export const GAME_AREA_BG_COLOR = "#87CEEB";

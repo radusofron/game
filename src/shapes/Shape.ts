@@ -1,5 +1,5 @@
 import { Graphics } from "pixi.js";
-import { GRAVITY, SHAPE_STROKE } from "../constants";
+import { SHAPE_STROKE } from "../constants";
 
 // Base class
 export abstract class Shape {
@@ -34,8 +34,8 @@ export abstract class Shape {
     this.drawShape(this.outlineGraphics).stroke(SHAPE_STROKE);
   }
 
-  update(delta: number): void {
-    this.y += GRAVITY * delta;
+  update(delta: number, gravity: number): void {
+    this.y += gravity * delta;
     this.graphics.position.y = this.y;
     this.outlineGraphics.position.y = this.y;
   }

@@ -3,26 +3,58 @@ import { Shape } from "./shapes/Shape";
 import { ShapeFactory } from "./shapes/ShapeFactory";
 import { LayerManager } from "./layers/LayerManager";
 import { Stats } from "./Stats";
-import { SPAWN_INTERVAL, SHAPE_HEIGHT, EDGE_ZONE_HEIGHT } from "./constants";
+import { Controls } from "./Controls";
+import {
+  GRAVITY,
+  SPAWN_FREQUENCY,
+  SHAPE_HEIGHT,
+  EDGE_ZONE_HEIGHT,
+} from "./constants";
 
 export class Game {
   private readonly layerManager: LayerManager;
   private readonly shapes = new Set<Shape>();
   private readonly stats = new Stats();
+  private readonly controls = new Controls(
+    (delta) => this.onSpawnFrequencyChange(delta),
+    (delta) => this.onGravityChange(delta),
+  );
   private spawnTimer?: ReturnType<typeof setInterval>;
+  private spawnFrequency = SPAWN_FREQUENCY;
+  private gravity = GRAVITY;
 
   constructor(private readonly app: Application) {
     this.layerManager = new LayerManager(app, (x, y) => this.spawnShape(x, y));
   }
 
   start(): void {
-    this.spawnTimer = setInterval(() => this.spawnShape(), SPAWN_INTERVAL);
+    this.spawnTimer = setInterval(
+      () => this.spawnShape(),
+      1000 / this.spawnFrequency,
+    );
 
     document.addEventListener("visibilitychange", () =>
       this.onVisibilityChange(),
     );
 
     this.app.ticker.add((time) => this.tick(time.deltaTime));
+  }
+
+  private onSpawnFrequencyChange(delta: number): void {
+    // Minimum 1
+    this.spawnFrequency = Math.max(1, this.spawnFrequency + delta);
+    clearInterval(this.spawnTimer);
+    this.spawnTimer = setInterval(
+      () => this.spawnShape(),
+      1000 / this.spawnFrequency,
+    );
+    this.controls.update(this.spawnFrequency, this.gravity);
+  }
+
+  private onGravityChange(delta: number): void {
+    // Minimum 1
+    this.gravity = Math.max(1, this.gravity + delta);
+    this.controls.update(this.spawnFrequency, this.gravity);
   }
 
   // Spawns a shape into the canvas (at the given position, or at a random x along the top if no position is given) and adds it to the active shapes set
@@ -45,7 +77,7 @@ export class Game {
   // Runs every frame: advances each shape, removes those that reached the bottom, refreshes the stats
   private tick(delta: number): void {
     for (const shape of this.shapes) {
-      shape.update(delta);
+      shape.update(delta, this.gravity);
 
       if (shape.isAtCanvasBottom(this.app.screen.height)) {
         this.removeShape(shape);
@@ -77,7 +109,10 @@ export class Game {
       clearInterval(this.spawnTimer);
       this.app.ticker.stop();
     } else {
-      this.spawnTimer = setInterval(() => this.spawnShape(), SPAWN_INTERVAL);
+      this.spawnTimer = setInterval(
+        () => this.spawnShape(),
+        1000 / this.spawnFrequency,
+      );
       this.app.ticker.start();
     }
   }
